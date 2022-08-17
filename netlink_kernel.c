@@ -36,7 +36,7 @@ int notifier(struct notifier_block *block, unsigned long code, void *p)
 
         printk(KERN_INFO " RELEASED %c\n", tav);
     }
-    sendpacket(&tav);
+    // sendpacket(&tav);
     return 1;
 }
 

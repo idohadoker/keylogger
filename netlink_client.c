@@ -73,12 +73,7 @@ int main()
     resp.msg_iov = &iov2; // resp -> iov
     resp.msg_iovlen = 1;
 
-    printf("Sending message to kernel\n");
-
     int ret = sendmsg(sock_fd, &msg, 0);
-    printf("send ret: %d\n", ret);
-
-    printf("Waiting for message from kernel\n");
 
     /* Read message from kernel */
     recvmsg(sock_fd, &resp, 0); // msg is also receiver for read
@@ -91,12 +86,7 @@ int main()
 
         strcpy(NLMSG_DATA(nlh), usermsg); // put "Hello" msg into nlh
 
-        printf("Sending message \" %s \" to kernel\n", usermsg);
-
         ret = sendmsg(sock_fd, &msg, 0);
-        printf("send ret: %d\n", ret);
-
-        printf("Waiting for message from kernel\n");
 
         recvmsg(sock_fd, &resp, 0);
 
