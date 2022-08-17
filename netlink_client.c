@@ -21,18 +21,13 @@ struct nlmsghdr *nlh = NULL;
 struct nlmsghdr *nlh2 = NULL;
 struct msghdr msg, resp; // famous struct msghdr, it includes "struct iovec *   msg_iov;"
 struct iovec iov, iov2;
-struct ethernet_header
-{
-    unsigned char h_dest[6];   // mac address where data is sent to
-    unsigned char h_source[6]; // mac address where data is sent from
-    unsigned short h_type;     // what type of protocol we are using
-};
+
 int sock_fd;
 
 static int init_socket();
 static int bindsockets();
-static void receivepackets();
-int main(int args, char *argv[])
+
+int main()
 {
 
     sock_fd = init_socket();
@@ -93,13 +88,6 @@ int main(int args, char *argv[])
     char usermsg[MAX_PAYLOAD];
     while (1)
     {
-        printf("Input your msg for sending to kernel: ");
-        scanf("%s", usermsg);
-        if (strncmp(usermsg, "exit", 4) == 0)
-        {
-            printf("leaving kernel\n");
-            break;
-        }
 
         strcpy(NLMSG_DATA(nlh), usermsg); // put "Hello" msg into nlh
 
@@ -147,29 +135,4 @@ static int bindsockets()
         exit(1);
     }
     return 1;
-}
-
-// receives packets from socket
-static void receivepackets()
-{
-
-    int receive;
-    int saddrsize = sizeof(saddr);
-    while (1)
-    {
-        memset(buffer, 0, buffersize);
-        receive = recvfrom(sock_fd, buffer, buffersize, 0, &saddr, &saddrsize);
-        if (receive > 0)
-        {
-            struct ethernet_header *eth = (struct ethernet_header *)buffer;
-
-            if (ntohs(eth->h_type) == 2048)
-            {
-                printf("\n------------------------------------------------------ETHERNET HEADER------------------------------------------------------\n");
-                printf("\t|-Source Address : %.2X-%.2X-%.2X-%.2X-%.2X-%.2X\n", eth->h_source[0], eth->h_source[1], eth->h_source[2], eth->h_source[3], eth->h_source[4], eth->h_source[5]); // at least 2 numbers in hex base printing the src mac address
-                printf("\t|-Destination Address : %.2X-%.2X-%.2X-%.2X-%.2X-%.2X\n", eth->h_dest[0], eth->h_dest[1], eth->h_dest[2], eth->h_dest[3], eth->h_dest[4], eth->h_dest[5]);
-                printf("\t|-Protocol : %d\n", eth->h_type);
-            }
-        }
-    }
 }
