@@ -1,0 +1,7 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "netlink.h": "c",
+        "keyboard.h": "c"
+    }
+}
