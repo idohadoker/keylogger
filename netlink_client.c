@@ -1,21 +1,21 @@
 #include "netlink_client.h"
 
 static int sendtoserver(int, char *);
-static int init_server();
+static int init_client();
 static int init_socket();
 static int bindsockets(int);
 
 int main()
 {
     int sock_fd;
-    int server_fd;
+    int client_fd;
     sock_fd = init_socket();
     if (sock_fd < 0)
     {
         exit(1);
     }
-    server_fd = init_server();
-    if (server_fd < 0)
+    client_fd = init_client();
+    if (client_fd < 0)
     {
         exit(1);
     }
@@ -70,20 +70,21 @@ int main()
 
     while (1)
     {
+        char buffer[20];
         printf("\nPressed : %s\n", (char *)NLMSG_DATA(nlh2));
-        if (sendtoserver(server_fd, (char *)NLMSG_DATA(nlh2)) != 1)
-        {
-            exit(1);
-        }
+
         strncpy(NLMSG_DATA(nlh), "1", 1);
 
         ret = sendmsg(sock_fd, &msg, 0);
+        send(client_fd, (char *)NLMSG_DATA(nlh2), 2, 0);
+
         if (ret < 0)
         {
             exit(1);
         }
 
         recvmsg(sock_fd, &resp, 0);
+        recv(client_fd, buffer, sizeof(buffer), 0);
     }
     free(nlh);
     free(nlh2);
@@ -110,18 +111,31 @@ static int bindsockets(int sock_fd)
     dest_addr.nl_groups = 0; /* unicast */
 
     // int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-    if (bind(sock_fd, (struct sockaddr *)&src_addr, sizeof(src_addr)))
+    if (bind(sock_fd, (struct sockaddr *)&src_addr, sizeof(src_addr)) < 0)
     {
         exit(1);
     }
     return 1;
 }
-static int init_server()
+static int init_client()
 {
-    return socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW);
-}
-static int sendtoserver(int server_fd, char *message)
-{
+    int sock;
+    struct sockaddr_in addr;
+    socklen_t addr_size;
+    char buffer[20];
+    int n;
 
-    return 1;
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0)
+    {
+        exit(1);
+    }
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = port;
+    addr.sin_addr.s_addr = inet_addr(ip);
+
+    if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+        exit(1);
+    return sock;
 }

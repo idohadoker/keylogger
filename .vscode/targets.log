@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Thu Aug 18 13:58:13 2022
+# Make data base, printed on Thu Aug 18 18:57:20 2022
 
 # Variables
 
@@ -15,6 +14,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 GDK_BACKEND = x11
 # environment
 LC_ALL = C
+# environment
+NO_AT_BRIDGE = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
@@ -92,7 +93,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 14336
+VSCODE_PID = 3456
 # environment
 XDG_SESSION_TYPE = x11
 # makefile (from 'Makefile', line 7)
@@ -100,7 +101,7 @@ LINUX_KERNEL := 5.15.0-46-generic
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/1985,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/1985
+SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/1993,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/1993
 # automatic
 *F = $(notdir $*)
 # environment
@@ -142,7 +143,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = c746b9b579a140ee98b99f94bd804e8e
+INVOCATION_ID = 95ac27dcc61e4909932e7bba57737deb
 # environment
 USERNAME = idohadoker
 # environment
@@ -170,7 +171,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 2008
+SYSTEMD_EXEC_PID = 2017
 # environment
 DISPLAY = :1
 # environment
@@ -186,11 +187,11 @@ MAKE_VERSION := 4.3
 # makefile (from 'Makefile', line 4)
 CURRENT_PATH := /home/idohadoker/test
 # environment
-MANAGERPID = 1570
+MANAGERPID = 1579
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 14336
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3456
 # environment
 _ = /usr/share/code/code
 # environment
@@ -202,7 +203,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # makefile (from 'Makefile', line 1)
 obj-m = netlink_kernel.o
 # environment
-JOURNAL_STREAM = 8:35072
+JOURNAL_STREAM = 8:30301
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -232,7 +233,7 @@ GDMSESSION = ubuntu
 # environment
 LC_IDENTIFICATION = en_US.UTF-8
 # variable set hash-table stats:
-# Load=110/1024=11%, Rehash=0, Collisions=4/155=3%
+# Load=111/1024=11%, Rehash=0, Collisions=4/156=3%
 
 # Pattern-specific Variable Values
 
@@ -240,9 +241,9 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 66306, inode 47579873): 9 files, no impossibilities.
+# . (device 66306, inode 47579873): 24 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -286,11 +287,8 @@ server:
 #  Modification time never checked.
 #  File has not been updated.
 
- 
 all:
- 
 #  Command line target.
- 
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
@@ -310,12 +308,12 @@ all:
 # ^ := 
 # automatic
 # ? := 
- 
 # automatic
 # | := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=7/14=50%
 #  recipe to execute (from 'Makefile', line 16):
+ 
 	@echo $(LINUX_KERNEL_PATH)
 	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) modules
 
@@ -333,12 +331,12 @@ all:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 17 / storage = 162 B / avg = 9 B
-# current buf: size = 8162 B / used = 162 B / count = 17 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 30 / storage = 421 B / avg = 14 B
+# current buf: size = 8162 B / used = 421 B / count = 30 / avg = 14 B
 
-# strcache performance: lookups = 27 / hit rate = 37%
+# strcache performance: lookups = 42 / hit rate = 28%
 # hash-table stats:
-# Load=17/8192=0%, Rehash=0, Collisions=0/27=0%
-# Finished Make data base on Thu Aug 18 13:58:13 2022
+# Load=30/8192=0%, Rehash=0, Collisions=0/42=0%
+# Finished Make data base on Thu Aug 18 18:57:20 2022
 
  
