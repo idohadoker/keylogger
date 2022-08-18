@@ -17,8 +17,13 @@ all:
 	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) modules
 
 client:
-	gcc netlink_client.c -o netlink_client -g
+	gcc netlink_client.c -o client 
+
+server:
+		gcc server.c -o server 
+
 
 clean:
 	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) clean
-	rm netlink_client
+	rm client
+	rm server 
