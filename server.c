@@ -7,16 +7,33 @@
 #define ip "127.1.1.1"
 #define port 553
 
+int init_socket();
 int main()
 {
+    int client_sock;
+    char buffer[20];
 
+    client_sock = init_socket();
+    while (1)
+    {
+
+        recv(client_sock, buffer, sizeof(buffer), 0);
+        printf("Client: %s\n", buffer);
+
+        send(client_sock, "ok", 2, 0);
+    }
+    close(client_sock);
+
+    return 0;
+}
+
+int init_socket()
+{
     int server_sock, client_sock;
     struct sockaddr_in server_addr, client_addr;
     socklen_t addr_size;
-    char buffer[20];
-    int n;
-
     server_sock = socket(AF_INET, SOCK_STREAM, 0);
+
     if (server_sock < 0)
     {
         perror("[-]Socket error");
@@ -36,15 +53,5 @@ int main()
 
     addr_size = sizeof(client_addr);
     client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &addr_size);
-    while (1)
-    {
-
-        recv(client_sock, buffer, sizeof(buffer), 0);
-        printf("Client: %s\n", buffer);
-
-        send(client_sock, "ok", 2, 0);
-    }
-    close(client_sock);
-
-    return 0;
+    return client_sock;
 }
