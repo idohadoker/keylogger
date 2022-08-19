@@ -10,15 +10,8 @@ int main()
     int sock_fd;
     int client_fd;
     sock_fd = init_socket();
-    if (sock_fd < 0)
-    {
-        exit(1);
-    }
+
     client_fd = init_client();
-    if (client_fd < 0)
-    {
-        exit(1);
-    }
 
     if (bindsockets(sock_fd) != 1)
         exit(1);
@@ -95,7 +88,12 @@ int main()
 
 static int init_socket()
 {
-    return socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
+    int sock_fd = socket(PF_NETLINK, SOCK_RAW, NETLINK_USER);
+    if (sock_fd < 0)
+    {
+        exit(1);
+    }
+    return sock_fd;
 }
 
 static int bindsockets(int sock_fd)
@@ -126,6 +124,10 @@ static int init_client()
     int n;
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0)
+    {
+        exit(1);
+    }
     if (sock < 0)
     {
         exit(1);
