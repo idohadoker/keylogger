@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 19 15:18:15 2022
+# Make data base, printed on Fri Aug 19 15:34:30 2022
 
 # Variables
 
@@ -91,7 +91,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 2858
+VSCODE_PID = 2831
 # environment
 XDG_SESSION_TYPE = x11
 # makefile (from 'Makefile', line 7)
@@ -99,7 +99,7 @@ LINUX_KERNEL := 5.15.0-46-generic
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/2009,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/2009
+SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/1970,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/1970
 # automatic
 *F = $(notdir $*)
 # environment
@@ -141,7 +141,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = a80176f42a5f40f5a0755beb9fecad50
+INVOCATION_ID = 9992f8df610f4785bbcc7b47da2285db
 # environment
 USERNAME = idohadoker
 # environment
@@ -169,7 +169,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 2033
+SYSTEMD_EXEC_PID = 1993
 # environment
 DISPLAY = :1
 # environment
@@ -185,11 +185,11 @@ MAKE_VERSION := 4.3
 # makefile (from 'Makefile', line 4)
 CURRENT_PATH := /home/idohadoker/test
 # environment
-MANAGERPID = 1597
+MANAGERPID = 1554
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2858
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2831
 # environment
 _ = /usr/share/code/code
 # environment
@@ -201,7 +201,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # makefile (from 'Makefile', line 1)
 obj-m = netlink_kernel.o
 # environment
-JOURNAL_STREAM = 8:34515
+JOURNAL_STREAM = 8:29547
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -279,8 +279,8 @@ server:
 #  recipe to execute (from 'Makefile', line 23):
 		gcc server.c -o server 
 
- 
 # Not a target:
+ 
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -335,6 +335,6 @@ all:
 # strcache performance: lookups = 27 / hit rate = 37%
 # hash-table stats:
 # Load=17/8192=0%, Rehash=0, Collisions=0/27=0%
-# Finished Make data base on Fri Aug 19 15:18:15 2022
+# Finished Make data base on Fri Aug 19 15:34:30 2022
 
  

