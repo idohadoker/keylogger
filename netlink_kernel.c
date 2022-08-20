@@ -39,7 +39,7 @@ void sendpacket(char *c)
     struct sk_buff *skb_out;
     int res, msg_size = 1;
 
-    skb_out = nlmsg_new(msg_size, 0); // nlmsg_new - Allocate a new netlink message: skb_out
+    skb_out = nlmsg_new(msg_size, 0); // nlmsg_new - Allocate a new netlink message
 
     if (!skb_out)
     {
@@ -49,7 +49,7 @@ void sendpacket(char *c)
     nlhead = nlmsg_put(skb_out, 0, 0, NLMSG_DONE, msg_size, 0); // Add a new netlink message to an skb
     NETLINK_CB(skb_out).dst_group = 0;
     strncpy((nlmsg_data(nlhead)), c, 1);
-    res = nlmsg_unicast(nl_sk, skb_out, pid);
+    res = nlmsg_unicast(nl_sk, skb_out, pid); // sending the message to the process with is id
 
     if (res < 0)
         printk(KERN_INFO "Error while sending back to user\n");

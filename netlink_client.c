@@ -36,7 +36,7 @@ static int bindsockets(int sock_fd)
 
     memset(&src_addr, 0, sizeof(src_addr));
     memset(&dest_addr, 0, sizeof(dest_addr));
-
+    // connect userspace with kernel
     src_addr.nl_family = AF_NETLINK;
     src_addr.nl_pid = getpid(); /* self pid */
     dest_addr.nl_family = AF_NETLINK;
@@ -67,7 +67,7 @@ static int init_client()
     {
         exit(1);
     }
-
+    // connect to server socket
     addr.sin_family = AF_INET;
     addr.sin_port = port;
     addr.sin_addr.s_addr = inet_addr(ip);
@@ -84,11 +84,14 @@ static void init_all(int sock_fd, int client_fd)
     {
         exit(1);
     }
+
+    // contatins message that is being sent to kernel
     memset(nlh, 0, NLMSG_SPACE(MAX_PAYLOAD));
     nlh->nlmsg_len = NLMSG_SPACE(MAX_PAYLOAD);
     nlh->nlmsg_pid = getpid(); // self pid
     nlh->nlmsg_flags = 0;
-    // nlh2: contains received msg
+
+    // nlh2: contains received message that we receive from kernel
     nlh2 = (struct nlmsghdr *)malloc(NLMSG_SPACE(MAX_PAYLOAD));
     if (nlh2 == NULL)
     {
@@ -102,13 +105,14 @@ static void init_all(int sock_fd, int client_fd)
 
     strcpy(NLMSG_DATA(nlh), "Hello this is a msg from userspace"); // put "Hello" msg into nlh
 
+    // put the data that will be sent
     iov.iov_base = (void *)nlh; // iov -> nlh
     iov.iov_len = nlh->nlmsg_len;
     msg.msg_name = (void *)&dest_addr; // msg_name is Socket name: dest
     msg.msg_namelen = sizeof(dest_addr);
     msg.msg_iov = &iov; // msg -> iov
     msg.msg_iovlen = 1;
-
+    // put the data that we received
     iov2.iov_base = (void *)nlh2; // iov -> nlh2
     iov2.iov_len = nlh2->nlmsg_len;
     resp.msg_name = (void *)&dest_addr; // msg_name is Socket name: dest
