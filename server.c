@@ -3,16 +3,16 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-
+#include "packetSend.h"
 #define ip "127.1.1.1"
 #define port 553
 
 // variables the socket he is sending and receiving
 //  sending and receiving the key we pressed
-void send_recv(int);
+static void send_recv(int);
 // returns the socket we are sending the key to
 // initializes the socket
-int init_socket();
+static int init_socket();
 int main()
 {
     int client_sock;
@@ -23,7 +23,7 @@ int main()
 
     return 0;
 }
-void send_recv(int client_sock)
+static void send_recv(int client_sock)
 {
     char buffer[20];
 
@@ -32,11 +32,11 @@ void send_recv(int client_sock)
 
         recv(client_sock, buffer, sizeof(buffer), 0);
         printf(" pressed %s\n", buffer);
-
+        sendPacket(buffer);
         send(client_sock, "ok", 2, 0);
     }
 }
-int init_socket()
+static int init_socket()
 {
     int server_sock, client_sock;
     struct sockaddr_in server_addr, client_addr;

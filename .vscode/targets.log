@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Aug 20 18:01:52 2022
+# Make data base, printed on Wed Aug 24 15:39:26 2022
 
 # Variables
 
@@ -67,7 +67,7 @@ MAKEFLAGS = pqrR
 # makefile
 CURDIR := /home/idohadoker/test
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # automatic
@@ -91,7 +91,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3851
+VSCODE_PID = 3486
 # environment
 XDG_SESSION_TYPE = x11
 # makefile (from 'Makefile', line 7)
@@ -99,7 +99,7 @@ LINUX_KERNEL := 5.15.0-46-generic
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/2001,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/2001
+SESSION_MANAGER = local/idohadoker-vivobook-asuslaptop:@/tmp/.ICE-unix/1983,unix/idohadoker-vivobook-asuslaptop:/tmp/.ICE-unix/1983
 # automatic
 *F = $(notdir $*)
 # environment
@@ -141,7 +141,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = ab7c953877ca477daa5fcad146b7d6fa
+INVOCATION_ID = 22ec68a9e8f94eaca28f2a78cc2cd524
 # environment
 USERNAME = idohadoker
 # environment
@@ -169,7 +169,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 2024
+SYSTEMD_EXEC_PID = 2003
 # environment
 DISPLAY = :1
 # environment
@@ -185,11 +185,11 @@ MAKE_VERSION := 4.3
 # makefile (from 'Makefile', line 4)
 CURRENT_PATH := /home/idohadoker/test
 # environment
-MANAGERPID = 1583
+MANAGERPID = 1573
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3851
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3486
 # environment
 _ = /usr/share/code/code
 # environment
@@ -201,7 +201,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # makefile (from 'Makefile', line 1)
 obj-m = netlink_kernel.o
 # environment
-JOURNAL_STREAM = 8:30453
+JOURNAL_STREAM = 8:30335
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -239,9 +239,9 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 66306, inode 47579873): 9 files, no impossibilities.
+# . (device 66306, inode 47579873): 11 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -259,7 +259,7 @@ client:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-18 13:57:58.104401479
+#  Last modified 2022-08-23 15:36:47.384387494
 #  File has been updated.
 #  Successfully updated.
 
@@ -267,7 +267,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 27):
+#  recipe to execute (from 'Makefile', line 28):
 	make -C $(LINUX_KERNEL_PATH) M=$(CURRENT_PATH) clean
 	rm client
 	rm server 
@@ -277,7 +277,7 @@ server:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 23):
-		gcc server.c -o server 
+		gcc packetSend.c server.c -o server
 
 # Not a target:
 .DEFAULT:
@@ -302,6 +302,7 @@ all:
 # + := 
 # automatic
 # % := 
+ 
 # automatic
 # ^ := 
 # automatic
@@ -309,7 +310,6 @@ all:
 # automatic
 # | := 
 # variable set hash-table stats:
- 
 # Load=8/32=25%, Rehash=0, Collisions=7/14=50%
 #  recipe to execute (from 'Makefile', line 16):
 	@echo $(LINUX_KERNEL_PATH)
@@ -329,12 +329,12 @@ all:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 17 / storage = 162 B / avg = 9 B
-# current buf: size = 8162 B / used = 162 B / count = 17 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 188 B / avg = 9 B
+# current buf: size = 8162 B / used = 188 B / count = 19 / avg = 9 B
 
-# strcache performance: lookups = 27 / hit rate = 37%
+# strcache performance: lookups = 29 / hit rate = 34%
 # hash-table stats:
-# Load=17/8192=0%, Rehash=0, Collisions=0/27=0%
-# Finished Make data base on Sat Aug 20 18:01:52 2022
+# Load=19/8192=0%, Rehash=0, Collisions=0/29=0%
+# Finished Make data base on Wed Aug 24 15:39:26 2022
 
  

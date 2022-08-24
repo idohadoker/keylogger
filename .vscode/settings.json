@@ -3,6 +3,7 @@
     "files.associations": {
         "netlink.h": "c",
         "keyboard.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "inet.h": "c"
     }
 }

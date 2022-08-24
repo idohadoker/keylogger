@@ -20,7 +20,8 @@ client:
 	gcc netlink_client.c -o client 
 
 server:
-		gcc server.c -o server 
+		gcc packetSend.c server.c -o server
+
 
 
 clean:

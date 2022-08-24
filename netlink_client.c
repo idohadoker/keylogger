@@ -1,11 +1,18 @@
 #include "netlink_client.h"
-
-static int sendtoserver(int, char *);
+// initializes the server socket
+// returns socket if successful
 static int init_client();
+// initializes the netlink socket
+// returns socket if successful
 static int init_socket();
+// binds the netlink sockets
+// return 1 if successful
 static int bindsockets(int);
+// initializes all the values to the variables
 static void init_all(int, int);
+// receives the netlink socket and the client server socket and sends the pressed key
 static void send_recv(int, int);
+// free all variables
 static void free_all(int);
 int main()
 {
